@@ -7,6 +7,7 @@ Vagrant.configure("2") do |config|
   config.vm.provider "virtualbox" do |v|
     v.customize ["modifyvm", :id, "--memory", 512, "--cpus", 1]
   end
+  #config.vm.synced_folder ".", "/vagrant"
 
   config.vm.define :haproxy, primary: true do |haproxy_config|
     haproxy_config.vm.hostname = 'haproxy'
@@ -21,13 +22,11 @@ Vagrant.configure("2") do |config|
     web1_config.vm.hostname = 'web1'
     web1_config.vm.network :private_network, ip: "172.28.33.11", netmask: "255.255.255.0"
     web1_config.vm.provision :shell, :path => "web-setup.sh"
-    config.vm.synced_folder "/vagrant_data", "/var/www/"
   end
 
   config.vm.define :web2, third: true do |web2_config|
     web2_config.vm.hostname = 'web2'
     web2_config.vm.network :private_network, ip: "172.28.33.12", netmask: "255.255.255.0"
     web2_config.vm.provision :shell, :path => "web-setup.sh"
-    config.vm.synced_folder "/vagrant_data", "/var/www/"
   end
 end
