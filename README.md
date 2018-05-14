@@ -14,10 +14,7 @@ Terminal 2
 Terminal 3
   - lancer serveur web2 : vagrant up web2
   - se connecter à web2 : vagrant ssh
-
-MaJ futur :
-- ajout du mode Rsync pour synchroniser les modifications sur les deux serveurs
-
+------------------------------------------------------------------------
 
 --> Déclare la configuration de ressource de toutes les VMs
 
