@@ -9,8 +9,7 @@ if [ ! -f /etc/haproxy/haproxy.cfg ]; then
   cat > /etc/default/haproxy <<EOD
 # Set ENABLED to 1 if you want the init script to start haproxy.
 ENABLED=1
-# Add extra flags here.
-#EXTRAOPTS="-de -m 16"
+
 EOD
   cat > /etc/haproxy/haproxy.cfg <<EOD
 global
@@ -26,10 +25,6 @@ frontend http-in
     default_backend webservers
 backend webservers
     balance roundrobin
-    # Poor-man's sticky
-    # balance source
-    # JSP SessionID Sticky
-    # appsession JSESSIONID len 52 timeout 3h
     option httpchk
     option forwardfor
     option http-server-close

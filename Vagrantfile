@@ -2,8 +2,7 @@
 # vi: set ft=ruby :
 
 Vagrant.configure("2") do |config|
-  config.vm.box = "hashicorp/precise64"
-  config.vm.box_url = "https://vagrantcloud.com/hashicorp/precise64"
+  config.vm.box = "ubuntu/trusty64"
   
   config.vm.provider "virtualbox" do |v|
     v.customize ["modifyvm", :id, "--memory", 512, "--cpus", 1]
@@ -21,14 +20,14 @@ Vagrant.configure("2") do |config|
 
   config.vm.define :web1, second: true do |web1_config|
     web1_config.vm.hostname = 'web1'
-    web1_config.vm.synced_folder "/Documents/GitHub/Vagrant-Haproxy/data_web1", "/var/www/" #Attention chemin à modifier selon emplacement
+    web1_config.vm.synced_folder "/Documents/GitHub/Vagrant-Haproxy/data_web", "/var/www/" #Attention chemin à modifier selon emplacement
     web1_config.vm.network :private_network, ip: "172.28.33.11", netmask: "255.255.255.0"
     web1_config.vm.provision :shell, :path => "web-setup.sh"
   end
 
   config.vm.define :web2, third: true do |web2_config|
     web2_config.vm.hostname = 'web2'
-    web2_config.vm.synced_folder "/Documents/GitHub/Vagrant-Haproxy/data_web2", "/var/www/" #Attention chemin à modifier selon emplacement
+    web2_config.vm.synced_folder "/Documents/GitHub/Vagrant-Haproxy/data_web", "/var/www/" #Attention chemin à modifier selon emplacement
     web2_config.vm.network :private_network, ip: "172.28.33.12", netmask: "255.255.255.0"
     web2_config.vm.provision :shell, :path => "web-setup.sh"
   end
