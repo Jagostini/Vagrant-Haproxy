@@ -1,7 +1,7 @@
 # Vagrant-Haproxy
 
-Open up http://localhost:8080/haproxy?stats in your host's browser. This is the HAProxy admin interface.
-Open up http://localhost:8081/ in your host's browser. This is the load balanced interface to the two web servers. 
+http://localhost:8080/haproxy?stats : Interface admin du HAProxy
+http://localhost:8081/ : interface load balanced interface des deux servers web. 
 
 Terminal 1
   - lancer serveur HAProxy : vagrant up haproxy
@@ -14,6 +14,7 @@ Terminal 2
 Terminal 3
   - lancer serveur web2 : vagrant up web2
   - se connecter à web2 : vagrant ssh
+  
 ------------------------------------------------------------------------
 
 --> Déclare la configuration de ressource de toutes les VMs
@@ -43,7 +44,7 @@ config.vm.define :haproxy, primary: true do |haproxy_config|
 
 --> Déclare la configuration de la VM web1 \
         - Déclaration du hostname \
-        - Déclaration du dossier de synchronisation \
+        - Déclaration du dossier de synchronisation "Attention chemin à modifier selon emplacement"\
         - Déclaration de la configuration réseau \
         - Lancement des spécificitées avec le fichier "web-setup.sh"
 
@@ -60,14 +61,16 @@ config.vm.define :haproxy, primary: true do |haproxy_config|
 
 --> Déclare la configuration de la VM web2 \
         - Déclaration du hostname \
-        - Déclaration du dossier de synchronisation \
+        - Déclaration du dossier de synchronisation "Attention chemin à modifier selon emplacement"\
         - Déclaration de la configuration réseau \
         - Lancement des spécificitées avec le fichier "web-setup.sh"
         
 ```
   config.vm.define :web2, third: true do |web2_config|
     web2_config.vm.hostname = 'web2'
-    web2_config.vm.synced_folder "/Documents/GitHub/Vagrant-Haproxy/data_web", "/var/www/" #Attention chemin à modifier selon emplacement
+    web2_config.vm.synced_folder "/Documents/GitHub/Vagrant-Haproxy/data_web", "/var/www/" 
+    #Attention chemin à modifier selon emplacement
+    
     web2_config.vm.network :private_network, ip: "172.28.33.12", netmask: "255.255.255.0"
     web2_config.vm.provision :shell, :path => "web-setup.sh"
   end
